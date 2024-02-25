@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #070606;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .calculator {
+        width: 300px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+    }
+    input {
+        width: calc(100% - 10px);
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .row {
+        display: flex;
+        justify-content: center;
+    }
+    button {
+        padding: 10px 15px;
+        margin: 5px;
+        cursor: pointer;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+<div class="calculator">
+    <input type="text" id="display" disabled>
+    <div id="calcHistory"></div>
+    <div class="row">
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="appendToDisplay('+')">+</button>
+        <button onclick="deleteLastCharacter()" style="background-color: #ff0000; color: #ffffff; font-size: 16px; border: 1px solid #ff0000;">←</button>
+        <button onclick="clearHistory()">ClH</button>
+    </div>
+    <div class="row">
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="appendToDisplay('-')">-</button>
+    </div>
+    <div class="row">
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="appendToDisplay('*')">*</button>
+    </div>
+    <div class="row">
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="appendToDisplay('/')">/</button>
+    </div>
+    <div class="row">
+        <button onclick="appendToDisplay('.')">.</button>
+        <button onclick="appendToDisplay('0')">0</button>
+        <button onclick="calculate()">=</button>
+    </div>
+    <div class="row">
+        <button onclick="power()">^</button>
+        <button onclick="squareRoot()">√</button>
+        <button onclick="percentage()">%</button>
+
+    </div>
+
+</div>
+
+<script>
+    function appendToDisplay(value) {
+        document.getElementById('display').value += value;
+    }
+
+    function deleteLastCharacter() {
+        let display = document.getElementById('display');
+        display.value = display.value.slice(0, -1);
+    }
+
+    function clearDisplay() {
+        document.getElementById('display').value = '';
+    }
+
+    function calculate() {
+        let result = eval(display.value);
+        display.value = result;
+        
+        let history = display.value + " = " + result;
+        document.getElementById("calcHistory").innerHTML += "<p>" + history + "</p>";
+    }
+    function clearHistory() {
+        document.getElementById("calcHistory").innerHTML = "";
+    }
+    function power() {
+        let display = document.getElementById("calcDisplay");
+        let result = Math.pow(parseFloat(display.innerHTML), 2);
+        display.innerHTML = result;
+    }
+    
+    function squareRoot() {
+        let display = document.getElementById("calcDisplay");
+        let result = Math.sqrt(parseFloat(display.innerHTML));
+        display.innerHTML = result;
+    }
+    
+    function percentage() {
+        let display = document.getElementById("calcDisplay");
+        let result = parseFloat(display.innerHTML) / 100;
+        display.innerHTML = result;
+    }  
+</script>
+</body>
+</html>
